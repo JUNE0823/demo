@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.test.mapper.BbsMapper">
+
+  <insert id="saveRow" 
+          parameterType="com.example.demo.test.domain.BbsRequestDTO">
+    INSERT INTO TB_BBS(TITLE, CONTENT)
+    VALUES(#{title}, #{content})
+  </insert>
+
+  <select id="selectRow"
+          resultType="com.example.demo.test.domain.BbsResponseDTO">
+    select id, title, content
+    from  TB_BBS
+  </select>
+
+  <select id="getRow"
+          parameterType="java.util.HashMap"
+          resultType="com.example.demo.test.domain.BbsResponseDTO">
+    select id, title, content
+    from  TB_BBS
+    where id = #{id}
+  </select>
+
+  <delete id="deleteRow"
+          parameterType="java.util.HashMap">
+    delete from TB_BBS
+    where id = ${id}
+  </delete>
+  
+  <update id="updateRow" 
+          parameterType="com.example.demo.test.domain.BbsRequestDTO">
+    UPDATE TB_BBS
+    SET TITLE = #{title}, CONTENT = #{content}
+    WHERE id = #{id}
+  </update>
+
+  <insert id="saveComment" 
+          parameterType="com.example.demo.test.domain.comment.CommentRequestDTO">
+    INSERT INTO TB_COMMENT (content, bbsId)
+    VALUES(#{content}, #{bbsId})
+  </insert>
+
+  <select id="commentSelectRow"
+          parameterType="java.util.HashMap"
+          resultType="com.example.demo.test.domain.comment.CommentResponseDTO">
+    select id, content, bbsId
+    from  TB_COMMENT
+    where bbsId = #{id}
+  </select>
+</mapper>
